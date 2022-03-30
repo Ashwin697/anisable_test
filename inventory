@@ -1,2 +1,2 @@
-192.168.122.86
-192.168.122.91
+192.168.122.86  ansible_ssh_user=root  ansible_ssh_pass=6970
+192.168.122.91  ansible_ssh_user=root  ansible_ssh_pass=6970
