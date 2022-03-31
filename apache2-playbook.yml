@@ -11,3 +11,4 @@
    - name: installing apache2 pacakge      # title
      yum:                                  #package manager
       name: httpd                          #package name
+      state: latest                        #package state like latest,stable
