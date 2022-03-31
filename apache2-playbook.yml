@@ -1,0 +1,9 @@
+---
+
+- hosts: all                              #to run this on all host
+  become: true                            #run as sudo user i.e become true
+  tasks:                                  #task to be done
+
+   - name: installing apache2 pacakge      # title
+     yum:                                  #package manager
+      name: httpd                          #package name
