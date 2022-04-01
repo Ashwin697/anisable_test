@@ -1,0 +1,20 @@
+---
+
+- hosts: all                              #to run this on all host
+  become: true                            #run as sudo user i.e become true
+  tasks:                                  #task to be done
+
+   - name: updating index 
+     yum:
+      update_cache: yes
+     when: ansible_distribution == "CentOs"
+
+#we can also write when with other conditions 
+
+# when:  ansible_distribution == "CentOs" and ansible_distribution_version == "7.9"
+# when:  ansible_distribution in ["Debian", "Ubuntu"]
+
+   - name: installing apache2 pacakge      # title
+     yum:                                  #package manager
+      name: httpd                          #package name
+      state: latest                        #package state like latest,stable
