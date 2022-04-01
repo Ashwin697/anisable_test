@@ -13,6 +13,8 @@
 
 # when:  ansible_distribution == "CentOs" and ansible_distribution_version == "7.9"
 # when:  ansible_distribution in ["Debian", "Ubuntu"]
+# 
+# this we have to run if similar command can be run in multiple distros like apt is there in ubuntu and debian
 
    - name: installing apache2 pacakge      # title
      yum:                                  #package manager
