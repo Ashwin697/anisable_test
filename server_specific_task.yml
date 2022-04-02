@@ -1,0 +1,30 @@
+---
+
+- hosts: all                              #to run this on all host
+  become: true                            #run as sudo user i.e become true
+  pre_tasks:                              #using pre_task this task will run first as compare to other task to be done also in yml it runs from up to down
+
+   - name: updating index of Centos 
+     yum:
+      update_cache: yes
+      update_only: yes
+     when: ansible_distribution == "CentOs"
+
+#   - name: updating index of Ubuntu        # title
+#    apt:                                  #package manager
+#      upgrade: dist                         
+#      update_cache: yes
+#     when: ansible_disribution == "Ubuntu"
+
+- hosts: webserver                          # webserver is a server group which we have made in inventory file
+  become: true
+  tasks:
+
+   - name: Installing apache on Centos
+     dnf:
+      name:
+       - httpd
+       - tmux
+       - firewalld
+      state: latest
+     when: ansible_distribution == "CentOs"
