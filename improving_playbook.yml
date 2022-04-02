@@ -1,0 +1,21 @@
+---
+
+- hosts: all                              #to run this on all host
+  become: true                            #run as sudo user i.e become true
+  tasks:                                  #task to be done
+
+   - name: updating index 
+     package:                           # package is a variable that run on every dist according to their package manager like if it is apt or yum it will run accoding to them
+      name:
+      # - httpd                           #we can also write in this way 
+      # - tmux
+       - "{{ apache_package }}"
+       - "{{ tmux_package }}"         # this is the variable we have t assign value to this varaible according to their dist like apache in ubuntu and httpd in centos we have to write this in inventory file.
+      state: latest
+      update_cache: yes
+
+# can writen in this way on inventory file 
+
+# 192.168.122.86  apache_package=httpd tmux_package=tmux
+# 192.168.122.91  apache_package=httpd tmux_package=tmux
+
