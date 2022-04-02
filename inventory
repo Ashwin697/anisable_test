@@ -1,2 +1,5 @@
-192.168.122.86  apache_package=httpd tmux_package=tmux
-192.168.122.91  apache_package=httpd tmux_package=tmux
+[CentOstest]
+192.168.122.86
+
+[webserver]
+192.168.122.91   
