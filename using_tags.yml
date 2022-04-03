@@ -1,0 +1,38 @@
+---
+
+- hosts: all                              #to run this on all host
+  become: true                            #run as sudo user i.e become true
+  pre_tasks:                              #using pre_task this task will run first as compare to other task to be done also in yml it runs from up to down
+
+   - name: updating index of Centos
+     tags: always                         #we give anything to tag it upon us what we can write 
+     yum:
+      update_cache: yes
+      update_only: yes
+     when: ansible_distribution == "CentOs"
+
+
+- hosts: webserver                          # webserver is a server group which we have made in inventory file
+  become: true
+  tasks:
+
+   - name: Installing apache on Centos
+     tags: centos,apache,tmux
+     dnf:
+      name:
+       - httpd
+       - tmux
+       - firewalld
+      state: latest
+     when: ansible_distribution == "CentOs"
+
+
+# to run this we can use this command
+# ansible-playbook --tags centos using_tag.yml
+# when we run the playbook with this tag "centos" only those task will run which have centos tag in it and other will be skipped
+#
+# to see list of tags in file use this command
+# ansible-playbook --list-tags using_tag.yml
+#
+# run multiple tags at a same time
+# ansible-playbook --tags "centos,always" using_tag.yml
