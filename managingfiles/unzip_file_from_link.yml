@@ -1,0 +1,68 @@
+---
+
+- hosts: workstation                      #to run this on all host
+  become: true                            #run as sudo user i.e become true
+  pre_tasks:                              #using pre_task this task will run first as compare to other task to be done also in yml it runs from up to down
+
+   - name: updating index of Ubuntu
+     tags: always                         #we give anything to tag it upon us what we can write 
+     apt:
+      update_cache: yes
+      upgrade: dist
+     when: ansible_distribution == "Ubuntu"
+
+
+- hosts: centos                          # centos is a server group which we have made in inventory file
+  become: true
+  tasks:
+
+   - name: updating index.html file on servers
+     tags: webserver,hasehtml
+     copy:
+       src: /home/kaal/anisable/anisable_test/managingfiles/test_file.html
+       dest: /var/www/html/index.html
+       owner: root
+       group: root
+       mode: 0644 
+     when: ansible_distribution == "CentOs"
+
+
+
+- hosts: workstation                          # workstation is a server group which we have made in inventory file
+  become: true
+  tasks:
+
+   - name: install apache2 on Ubuntu
+     package:
+      name: apache2
+
+   - name: updating index.html file on servers
+     tags: webserver,hasehtml
+     copy:
+       src: /home/kaal/anisable/anisable_test/managingfiles/test_file.html
+       dest: /var/www/html/index.html
+       owner: root
+       group: root
+       mode: 0644
+     when: ansible_distribution == "Ubuntu"
+
+
+
+- hosts: all                          
+  become: true
+  tasks:
+
+   - name: install unzip
+     package:
+       name: unzip
+
+   - name: updating download and unzip the file on servers
+     tags: webserver,hasehtml
+     unarchive:                                                                            #will nzip the file ansible function
+       src: https://releases.hashicorp.com/terraform/1.1.7/terraform_1.1.7_linux_386.zip   #remote file destination
+       dest: /usr/local/bin
+       remote_src: yes
+       owner: root
+       group: root
+       mode: 0755
+    
