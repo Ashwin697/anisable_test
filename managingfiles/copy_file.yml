@@ -1,0 +1,30 @@
+---
+
+- hosts: all                              #to run this on all host
+  become: true                            #run as sudo user i.e become true
+  pre_tasks:                              #using pre_task this task will run first as compare to other task to be done also in yml it runs from up to down
+
+   - name: updating index of Centos
+     tags: always                         #we give anything to tag it upon us what we can write 
+     yum:
+      update_cache: yes
+      update_only: yes
+     when: ansible_distribution == "CentOs"
+
+
+- hosts: all                          # webserver is a server group which we have made in inventory file
+  become: true
+  tasks:
+
+   - name: updating index.html file on servers
+     tags: webserver,hasehtml
+     copy:
+       src: /home/kaal/anisable/anisable_test/managingfiles/test_file.html
+       dest: /var/www/html/index.html
+       owner: root
+       group: root
+       mode: 0644 
+     when: ansible_distribution == "CentOs"
+
+
+
