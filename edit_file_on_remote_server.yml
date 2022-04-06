@@ -16,7 +16,7 @@
      tags: email,remoteserver
      lineinfile:                                   # this will change the file on remote server
        path: /etc/httpd/conf/httpd.conf            # path of the file to  be changed 
-       regexp: "^ServerAdmin"                      # this regular expression (^)  is defined that the line which is started from 'ServerAdmin' will only be changed
+       regexp: '^ServerAdmin'                      # this regular expression (^)  is defined that the line which is started from 'ServerAdmin' will only be changed
        line: ServerAdmin kanojiaashwin18@gmail.com # the line will be replaced by this line  
      when: ansible_distribution == "CentOs"
      register: httpd                               # the register will contain changes made to the file and httpd is that variable which holds the changes the variable name can be given according to us i.e anything
