@@ -1,0 +1,13 @@
+---
+
+- hosts: centos
+  become: true
+  tasks:
+
+   - name: Starting httpd service in Centos
+     tags: service,httpd
+     service:                                      # this module use for managing services
+      name: httpd                                  
+      state: started                               # state of service
+      enabled: yes                                 # this will start the service on system startup
+     when: ansible_distribution == "CentOS"
