@@ -32,7 +32,7 @@
     tags: ssh
     authorized_key:
        user: ashwin
-       key: "ssh-ed25519 7OMvcs17ntflXeaT7 root@kaal"
+       key: "ssh-ed25519 7OMvcs17ntflXeaT7 root@kaal"       # content of ~/.ssh/ed25519.pub
 
 
   - name: adding user to sudoers
