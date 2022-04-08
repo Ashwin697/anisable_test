@@ -1,0 +1,45 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: install updates in ubuntu
+    tags: always,ubuntu
+    apt:
+      update_cache: yes
+      upgrade: dist
+    changed_when: false                       # if any update is done on server then it will be not notified i.e changed=1
+    when: ansible_distribution == 'Ubuntu'
+
+
+  - name: install updates in ubuntu
+    tags: always,ubuntu
+    yum:
+      update_cache: yes
+      update_only: yes
+    changed_when: false                       # if any update is done on server>
+    when: ansible_distribution == 'Centos'
+
+
+  - name: create user ashwin
+    tags: user
+    user:
+      name: ashwin
+      group: root
+
+  - name: adding ssh key to connect without password
+    tags: ssh
+    authorized_key:
+       user: ashwin
+       key: "ssh-ed25519 7OMvcs17ntflXeaT7 root@kaal"
+
+
+  - name: adding user to sudoers
+    tags: sudo
+    copy:
+      src: file/sudoers_ashwin
+      dest: /etc/sudoers.d/ashwin
+      owner: root
+      group: root
+      mode: 0440
