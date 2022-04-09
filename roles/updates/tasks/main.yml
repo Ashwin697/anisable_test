@@ -1,0 +1,23 @@
+- name: updating Ubuntu
+  apt:
+   update_cache: yes
+   upgrade: dist
+  when: ansible_distribution == "Ubuntu"
+
+- name: Updating Centos
+  yum:
+   update_cache: yes
+  when: ansible_distribution == "CentOS"
+
+
+# here we will write only tasks and on main we will define this tasks
+# like this
+# 
+# - hosts: all
+#   become: true
+#   roles:
+#    - update
+#
+# directory structure will be like this from main working directory 
+#
+#  maindirectory/roles/update/tasks/main.yml
