@@ -1,0 +1,8 @@
+- hosts: all
+  become: true
+  roles:
+    - updates
+
+
+# here update is the directory which is under roles/updates/tasks/main.yml
+# this will call the main.yml under roles/updates folder
