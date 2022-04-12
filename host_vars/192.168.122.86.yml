@@ -1,0 +1,2 @@
+apache_service: httpd
+php_package_name: libapache2-mod-php
