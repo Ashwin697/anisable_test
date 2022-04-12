@@ -19,18 +19,24 @@
        regexp: '^ServerAdmin'                      # this regular expression (^)  is defined that the line which is started from 'ServerAdmin' will only be changed
        line: ServerAdmin kanojiaashwin18@gmail.com # the line will be replaced by this line  
      when: ansible_distribution == "CentOs"
-     register: httpd                               # the register will contain changes made to the file and httpd is that variable which holds the changes the variable name can be given according to us i.e anything
+#     register: httpd                               # the register will contain changes made to the file and httpd is that variable which holds the changes the variable name can be given according to us i.e anything
+     notify: restart_apache                        # we have replace the register with notify after any changes happen here notify will target the (restart_apache) task which is under roles/base/handlers/main.yml 
+
+
+
+
 
 # after changing the file the service need to be restarted 
 # also if we are editing more file then the register variable should be different for each tasks
 
 
-   - name: restarting the httpd service after editing the file
-     tags: restart
-     service:
-       name: httpd
-       state: restarted
-     when: httpd.changed                          # the variable httpd contain changes so the restart service only run when the their is any change if httpd variable doesn't contain any changes then this task will not run
+#   - name: restarting the httpd service after editing the file
+#     tags: restart
+#     service:
+#       name: httpd
+#       state: restarted
+#     when: httpd.changed                          # the variable httpd contain changes so the restart service only run when the their is any change if httpd variable doesn't contain any changes then this task will not run
 
+# now we dont need this task which we have commented above because we have replaced it with notify 
 
 
