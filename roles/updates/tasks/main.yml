@@ -1,5 +1,5 @@
 - name: updating Ubuntu
-  apt:
+  package:
    update_cache: yes
    upgrade: dist
   when: ansible_distribution == "Ubuntu"
@@ -8,6 +8,11 @@
   yum:
    update_cache: yes
   when: ansible_distribution == "CentOS"
+
+- name: restart the service
+  service:
+    name: "{{ apache_service }}"   # this varaiable is from host_vars/host_ip.yml file where we can define according to the host
+    state: restarted
 
 
 # here we will write only tasks and on main we will define this tasks
