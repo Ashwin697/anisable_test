@@ -1,0 +1,13 @@
+# remeber we have used register to hold the changes in a variable
+# now we will use "notify" to do this if we use this and any change have been done it will run the specific task
+#
+# syntax :
+# 
+# notify: restart_apache
+#
+# this will be written under roles/base/tasks/main.yml file 
+
+- name: restart_apache
+  service:
+    name: "{{ apache_service }}" # this variable is in host_vars/host_ip.yml
+    state: latest
